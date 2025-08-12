@@ -1,17 +1,19 @@
 
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
-import { Dashboard } from './components/Dashboard';
-import { Settings } from './components/Settings';
 import { useSmartfarmData } from './hooks/useSmartfarmData';
 import { View, AttendanceLog, WorkforceMember } from './types';
-import { AddFarm } from './components/AddFarm';
-import { FarmsView } from './components/FarmsView';
-import { DailyReportsView } from './components/DailyReportsView';
-import { InventoryView } from './components/InventoryView';
-import { AnalysisView } from './components/AnalysisView';
-import { WorkforceView } from './components/WorkforceView';
+import { Spinner } from './components/ui/Spinner';
+
+const Dashboard = lazy(() => import('./components/Dashboard').then(m => ({ default: m.Dashboard })));
+const Settings = lazy(() => import('./components/Settings').then(m => ({ default: m.Settings })));
+const AddFarm = lazy(() => import('./components/AddFarm').then(m => ({ default: m.AddFarm })));
+const FarmsView = lazy(() => import('./components/FarmsView').then(m => ({ default: m.FarmsView })));
+const DailyReportsView = lazy(() => import('./components/DailyReportsView').then(m => ({ default: m.DailyReportsView })));
+const InventoryView = lazy(() => import('./components/InventoryView').then(m => ({ default: m.InventoryView })));
+const AnalysisView = lazy(() => import('./components/AnalysisView').then(m => ({ default: m.AnalysisView })));
+const WorkforceView = lazy(() => import('./components/WorkforceView').then(m => ({ default: m.WorkforceView })));
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>(View.DASHBOARD);
@@ -89,7 +91,15 @@ const App: React.FC = () => {
                 </div>
             </div>
           ) : (
-            renderView()
+            <Suspense
+              fallback={
+                <div className="flex justify-center items-center h-full">
+                  <Spinner />
+                </div>
+              }
+            >
+              {renderView()}
+            </Suspense>
           )}
         </main>
       </div>

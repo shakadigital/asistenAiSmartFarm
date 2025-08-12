@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import type { Flock, DailyRecord } from '../types';
 import { Card, CardContent, CardHeader } from './ui/Card';
 import { BarChart2, Lightbulb } from 'lucide-react';
-import { SmartAssistant } from './SmartAssistant';
+const SmartAssistant = lazy(() => import('./SmartAssistant').then(m => ({ default: m.SmartAssistant })));
 
 interface AnalysisViewProps {
   flocks: Flock[];
@@ -29,7 +29,9 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({ flocks, dailyRecords
            </p>
         </CardHeader>
         <CardContent>
-            <SmartAssistant flocks={flocks} dailyRecords={dailyRecords} />
+            <Suspense fallback={<div className="h-[60vh] flex items-center justify-center text-sm text-gray-500">Memuat Asisten AI...</div>}>
+                <SmartAssistant flocks={flocks} dailyRecords={dailyRecords} />
+            </Suspense>
         </CardContent>
       </Card>
     </div>

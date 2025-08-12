@@ -51,10 +51,10 @@ export const AddAttendanceModal: React.FC<AddAttendanceModalProps> = ({ workforc
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        const recordsToSave = Object.entries(attendanceData).map(([memberId, data]) => ({
+        const recordsToSave = Object.keys(attendanceData).map(memberId => ({
             memberId,
-            status: data.status,
-            notes: data.notes
+            status: attendanceData[memberId].status,
+            notes: attendanceData[memberId].notes
         }));
 
         setIsLoading(true);
@@ -134,13 +134,13 @@ export const AddAttendanceModal: React.FC<AddAttendanceModalProps> = ({ workforc
                         </CardContent>
                         <CardFooter className="flex justify-between items-center sticky bottom-0 bg-gray-50 dark:bg-gray-900/80 backdrop-blur-sm z-10">
                              <p className={`text-sm ${feedback.includes('berhasil') ? 'text-green-600' : 'text-red-500'}`}>{feedback}</p>
-                            <Button type="submit" isLoading={isLoading}>
-                                Simpan Absensi
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                </form>
-            </div>
-        </div>
-    );
+                             <Button type="submit" isLoading={isLoading}>
+                                 Simpan Absensi
+                             </Button>
+                         </CardFooter>
+                     </Card>
+                 </form>
+             </div>
+         </div>
+     );
 };
