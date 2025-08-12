@@ -3,7 +3,8 @@ import React from 'react';
 import type { Farm, Flock, DailyRecord } from '../types';
 import { Card, CardContent, CardHeader } from './ui/Card';
 import { GitFork, Bird, Users, Egg } from 'lucide-react';
-import { DashboardChart } from './DashboardChart';
+import { Suspense, lazy } from 'react';
+const DashboardChart = lazy(() => import('./DashboardChart').then(m => ({ default: m.DashboardChart })));
 
 interface DashboardProps {
   farms: Farm[];
@@ -71,7 +72,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ farms, flocks, dailyRecord
       </div>
 
       <div className="pt-2">
-        <DashboardChart dailyRecords={dailyRecords} />
+        <Suspense fallback={<div className="h-[300px] flex items-center justify-center text-sm text-gray-500">Memuat grafik...</div>}>
+          <DashboardChart dailyRecords={dailyRecords} />
+        </Suspense>
       </div>
 
        <div className="pt-6">
