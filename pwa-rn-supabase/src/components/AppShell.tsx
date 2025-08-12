@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
 
 const menu = [
   { label: 'Dasbor', path: '/' },
@@ -13,6 +15,20 @@ const menu = [
 
 export default function AppShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
+  const [email, setEmail] = useState('')
+
+  useEffect(() => {
+    ;(async () => {
+      const { data } = await supabase.auth.getUser()
+      setEmail(data.user?.email ?? '')
+    })()
+  }, [])
+
+  async function handleSignOut() {
+    await supabase.auth.signOut()
+    window.location.href = '/auth'
+  }
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', minHeight: '100vh', background: '#f5f7fb' }}>
       <aside style={{ background: '#0b4f2e', color: 'white', padding: 16 }}>
@@ -39,8 +55,8 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <header style={{ background: 'white', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px' }}>
           <div style={{ fontWeight: 600 }}>Unggas GreenValley</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 28, height: 28, background: '#16a34a', borderRadius: '50%' }} />
-            <div style={{ fontSize: 14 }}>Jane Doe · Admin</div>
+            <div style={{ fontSize: 14, color: '#334155' }}>{email}</div>
+            <button onClick={handleSignOut} style={{ border: '1px solid #e5e7eb', background: 'white', padding: '6px 10px', borderRadius: 8, cursor: 'pointer' }}>Keluar</button>
           </div>
         </header>
         <section style={{ padding: 16 }}>{children}</section>

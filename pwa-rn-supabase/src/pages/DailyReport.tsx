@@ -1,4 +1,8 @@
+import { useEffect, useMemo, useState } from 'react'
+import { supabase } from '../lib/supabase'
+
 type LogItem = {
+  id: string
   date: string
   flock: string
   dead: number
@@ -7,16 +11,60 @@ type LogItem = {
   weightKg: number
 }
 
-const sample: LogItem[] = [
-  { date: '20/5/2024', flock: 'Kawanan A-101', dead: 2, eggs: 4500, feedKg: 550, weightKg: 1.8 },
-  { date: '21/5/2024', flock: 'Kawanan A-101', dead: 3, eggs: 4450, feedKg: 545, weightKg: 1.81 },
-  { date: '22/5/2024', flock: 'Kawanan A-101', dead: 8, eggs: 4200, feedKg: 530, weightKg: 1.79 },
-  { date: '20/5/2024', flock: 'Kawanan B-202', dead: 1, eggs: 4800, feedKg: 580, weightKg: 1.85 },
-  { date: '21/5/2024', flock: 'Kawanan B-202', dead: 2, eggs: 4820, feedKg: 585, weightKg: 1.86 },
-  { date: '22/5/2024', flock: 'Kawanan B-202', dead: 1, eggs: 4850, feedKg: 582, weightKg: 1.87 },
-]
-
 export default function DailyReport() {
+  const [date, setDate] = useState<string>(() => new Date().toISOString().slice(0, 10))
+  const [flock, setFlock] = useState('Kawanan A-101')
+  const [dead, setDead] = useState<number | ''>('' as any)
+  const [eggs, setEggs] = useState<number | ''>('' as any)
+  const [feedKg, setFeedKg] = useState<number | ''>('' as any)
+  const [weightKg, setWeightKg] = useState<number | ''>('' as any)
+  const [loading, setLoading] = useState(false)
+  const [rows, setRows] = useState<LogItem[]>([])
+
+  const isValid = useMemo(() => date && flock && dead !== '' && eggs !== '' && feedKg !== '' && weightKg !== '', [date, flock, dead, eggs, feedKg, weightKg])
+
+  async function fetchRows() {
+    const { data, error } = await supabase
+      .from('daily_reports')
+      .select('*')
+      .order('date', { ascending: false })
+      .limit(100)
+    if (error) console.error(error)
+    else setRows(
+      (data ?? []).map((d) => ({
+        id: String(d.id),
+        date: new Date(d.date).toLocaleDateString('id-ID'),
+        flock: d.flock,
+        dead: d.dead,
+        eggs: d.eggs,
+        feedKg: d.feed_kg,
+        weightKg: d.weight_kg,
+      }))
+    )
+  }
+
+  useEffect(() => {
+    fetchRows()
+  }, [])
+
+  async function handleSave() {
+    if (!isValid) return
+    setLoading(true)
+    const payload = {
+      date: new Date(date).toISOString(),
+      flock,
+      dead: Number(dead),
+      eggs: Number(eggs),
+      feed_kg: Number(feedKg),
+      weight_kg: Number(weightKg),
+    }
+    const { error } = await supabase.from('daily_reports').insert(payload)
+    setLoading(false)
+    if (error) return alert(error.message)
+    setDead('' as any); setEggs('' as any); setFeedKg('' as any); setWeightKg('' as any)
+    fetchRows()
+  }
+
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <h2 style={{ margin: 0 }}>Laporan Harian</h2>
@@ -25,11 +73,11 @@ export default function DailyReport() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 12 }}>
           <div>
             <label style={{ display: 'block', fontSize: 12, color: '#64748b', marginBottom: 6 }}>Tanggal</label>
-            <input type="date" style={inputStyle} />
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} style={inputStyle} />
           </div>
           <div>
             <label style={{ display: 'block', fontSize: 12, color: '#64748b', marginBottom: 6 }}>Kawanan</label>
-            <select style={inputStyle}>
+            <select value={flock} onChange={(e) => setFlock(e.target.value)} style={inputStyle}>
               <option>Kawanan A-101</option>
               <option>Kawanan B-202</option>
             </select>
@@ -43,22 +91,22 @@ export default function DailyReport() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 12, marginTop: 12 }}>
           <div>
             <label style={label}>Mati</label>
-            <input type="number" min={0} placeholder="0" style={inputStyle} />
+            <input type="number" min={0} value={dead} onChange={(e) => setDead(e.target.value === '' ? '' as any : Number(e.target.value))} placeholder="0" style={inputStyle} />
           </div>
           <div>
             <label style={label}>Telur</label>
-            <input type="number" min={0} placeholder="0" style={inputStyle} />
+            <input type="number" min={0} value={eggs} onChange={(e) => setEggs(e.target.value === '' ? '' as any : Number(e.target.value))} placeholder="0" style={inputStyle} />
           </div>
           <div>
             <label style={label}>Pakan (kg)</label>
-            <input type="number" min={0} placeholder="0" style={inputStyle} />
+            <input type="number" min={0} value={feedKg} onChange={(e) => setFeedKg(e.target.value === '' ? '' as any : Number(e.target.value))} placeholder="0" style={inputStyle} />
           </div>
           <div>
             <label style={label}>BB (kg)</label>
-            <input type="number" min={0} step={0.01} placeholder="0" style={inputStyle} />
+            <input type="number" min={0} step={0.01} value={weightKg} onChange={(e) => setWeightKg(e.target.value === '' ? '' as any : Number(e.target.value))} placeholder="0" style={inputStyle} />
           </div>
           <div style={{ display: 'flex', alignItems: 'end' }}>
-            <button style={{ ...button, width: '100%' }}>Simpan Laporan</button>
+            <button onClick={handleSave} disabled={!isValid || loading} style={{ ...button, width: '100%', opacity: !isValid || loading ? 0.6 : 1 }}>{loading ? 'Menyimpan...' : 'Simpan Laporan'}</button>
           </div>
         </div>
       </div>
@@ -75,12 +123,12 @@ export default function DailyReport() {
               </tr>
             </thead>
             <tbody>
-              {sample.map((row, idx) => (
-                <tr key={idx}>
+              {rows.map((row) => (
+                <tr key={row.id}>
                   <td style={td}>{row.date}</td>
                   <td style={td}>{row.flock}</td>
                   <td style={tdRight}>{row.dead}</td>
-                  <td style={tdRight}>{row.eggs.toLocaleString()}</td>
+                  <td style={tdRight}>{row.eggs.toLocaleString('id-ID')}</td>
                   <td style={tdRight}>{row.feedKg}</td>
                   <td style={tdRight}>{row.weightKg}</td>
                 </tr>
