@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import AuthScreen from './screens/AuthScreen'
-import DashboardScreen from './screens/DashboardScreen'
 import { supabase } from './lib/supabase'
+import AppShell from './components/AppShell'
+import Dashboard from './pages/Dashboard'
+import DailyReport from './pages/DailyReport'
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -32,9 +34,18 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <DashboardScreen /> : <Navigate to="/auth" replace />} />
         <Route path="/auth" element={!isAuthenticated ? <AuthScreen /> : <Navigate to="/" replace />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/*" element={isAuthenticated ? (
+          <AppShell>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/reports/daily" element={<DailyReport />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AppShell>
+        ) : (
+          <Navigate to="/auth" replace />
+        )} />
       </Routes>
     </BrowserRouter>
   )
