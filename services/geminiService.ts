@@ -1,25 +1,26 @@
 import { GoogleGenAI } from "@google/genai";
 import type { Flock, DailyRecord } from '../types';
 
-if (!process.env.API_KEY) {
-  // In a real app, you'd want to handle this more gracefully.
-  // For this example, we'll throw an error if the key is missing.
-  // The environment variable is expected to be set in the deployment environment.
-  console.warn("Variabel lingkungan API_KEY tidak ditemukan. Fitur AI tidak akan berfungsi.");
+// Check if API key is available
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!apiKey) {
+  console.warn("Variabel lingkungan VITE_GEMINI_API_KEY tidak ditemukan. Fitur AI tidak akan berfungsi.");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+// Only create AI client if API key is available
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const getFarmAnalysisStream = async (
   query: string,
   flock: Flock,
   records: DailyRecord[]
 ) => {
-  if (!process.env.API_KEY) {
+  if (!apiKey || !ai) {
     // Return a readable stream that yields an error message
     return new ReadableStream({
       start(controller) {
-        controller.enqueue(new TextEncoder().encode("Error: Kunci API Gemini tidak dikonfigurasi. Silakan hubungi dukungan."));
+        controller.enqueue(new TextEncoder().encode("Error: Kunci API Gemini tidak dikonfigurasi. Silakan tambahkan VITE_GEMINI_API_KEY di file .env.local"));
         controller.close();
       }
     });
