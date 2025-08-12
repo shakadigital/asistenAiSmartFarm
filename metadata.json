@@ -1,0 +1,5 @@
+{
+  "name": "Asisten AI Smartfarm",
+  "description": "Sebuah Aplikasi Web Progresif untuk membantu petani mengelola operasi mereka, melacak kawanan ternak, dan mendapatkan wawasan cerdas dari asisten AI yang didukung oleh Gemini. Aplikasi ini menyediakan dasbor untuk metrik utama, manajemen kawanan, dan halaman pengaturan untuk menyesuaikan profil organisasi Anda.",
+  "requestFramePermissions": []
+}

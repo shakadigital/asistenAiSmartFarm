@@ -1,0 +1,27 @@
+{
+  "name": "asisten-ai-smartfarm",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "migrate:supabase": "node scripts/migrate-to-supabase.js",
+    "migrate:mock": "node scripts/restore-mock-data.js",
+    "setup:check": "node -e \"console.log('Checking setup...'); const fs = require('fs'); const envExists = fs.existsSync('.env.local'); console.log(envExists ? '✅ .env.local exists' : '❌ .env.local missing'); console.log('📖 See SETUP_GUIDE.md for instructions');\""
+  },
+  "dependencies": {
+    "@google/genai": "^1.13.0",
+    "@supabase/supabase-js": "^2.55.0",
+    "lucide-react": "^0.539.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
