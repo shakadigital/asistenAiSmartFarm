@@ -59,7 +59,7 @@ const processChartData = (records: DailyRecord[], activeMetric: string, flockAge
             henDay: weekRecords.reduce((sum, r) => sum + (r.eggProduction || 0), 0) / weekRecords.length,
             feedIntake: weekRecords.reduce((sum, r) => sum + (r.feedConsumption || 0), 0) / weekRecords.length,
             eggWeight: weekRecords.reduce((sum, r) => sum + (r.eggWeight || 0), 0) / weekRecords.length,
-            fcr: weekRecords.reduce((sum, r) => sum + (r.fcr || 0), 0) / weekRecords.length,
+            fcr: weekRecords.reduce((sum, r) => sum + (r.feedConsumption && r.eggWeight ? (r.feedConsumption / r.eggWeight) : 0), 0) / weekRecords.length,
         } : null;
         
         const actualData = avgRecord || (standardWeek ? {
