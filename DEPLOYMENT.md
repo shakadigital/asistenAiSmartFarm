@@ -14,7 +14,7 @@ Panduan lengkap untuk deploy aplikasi Smartfarm AI Assistant ke Vercel.
 Sebelum deploy, pastikan Anda memiliki environment variables berikut:
 
 ```bash
-GEMINI_API_KEY=your_gemini_api_key_here
+
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
@@ -42,7 +42,7 @@ Di Vercel Dashboard:
 
 1. Masuk ke **Settings** → **Environment Variables**
 2. Tambahkan environment variables:
-   - `GEMINI_API_KEY` = API key Google Gemini Anda
+   
    - `SUPABASE_URL` = URL project Supabase
    - `SUPABASE_ANON_KEY` = Anonymous key Supabase
 

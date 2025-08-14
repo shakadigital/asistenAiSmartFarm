@@ -64,21 +64,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ farms, flocks, dailyRecord
       <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard 
             icon={<GitFork className="h-4 w-4 text-gray-500 dark:text-gray-400" />}
-            title="Total Peternakan"
+            title="Total Lokasi"
             value={farms.length.toString()}
-            description="Jumlah lokasi peternakan aktif"
+            description="Jumlah lokasi aktif"
         />
         <StatCard 
             icon={<Bird className="h-4 w-4 text-gray-500 dark:text-gray-400" />}
-            title="Total Kawanan"
+            title="Total Farm"
             value={flocks.length.toString()}
-            description="Jumlah semua kawanan ternak"
+            description="Jumlah semua farm ternak"
         />
         <StatCard 
             icon={<Users className="h-4 w-4 text-gray-500 dark:text-gray-400" />}
             title="Total Populasi"
             value={totalPopulation.toLocaleString('id-ID')}
-            description="Total populasi awal semua kawanan"
+            description="Total populasi awal semua farm"
         />
         <StatCard 
             icon={<Egg className="h-4 w-4 text-gray-500 dark:text-gray-400" />}
@@ -101,7 +101,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ farms, flocks, dailyRecord
        <div className="pt-4 sm:pt-6">
          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight text-gray-800 dark:text-white mb-3 sm:mb-4">Selamat Datang di Smartfarm!</h3>
          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-            Gunakan menu di sebelah kiri untuk menavigasi melalui berbagai modul aplikasi. Anda dapat mengelola peternakan, memantau inventori, dan mendapatkan wawasan mendalam dari Analisa Performa AI kami.
+            Gunakan menu di sebelah kiri untuk menavigasi melalui berbagai modul aplikasi. Anda dapat mengelola lokasi, memantau inventori, dan mendapatkan wawasan mendalam dari Analisa Performa AI kami.
          </p>
        </div>
     </div>

@@ -44,7 +44,7 @@ export const DailyReportsView: React.FC<DailyReportsViewProps> = ({ dailyRecords
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.flockId || !formData.recordDate) {
-            setFeedback('Tanggal dan Kawanan harus diisi.');
+            setFeedback('Tanggal dan Farm harus diisi.');
             return;
         }
 
@@ -102,69 +102,223 @@ export const DailyReportsView: React.FC<DailyReportsViewProps> = ({ dailyRecords
                             required
                         />
                         <div>
-                             <label htmlFor="flockId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Kawanan</label>
+                             <label htmlFor="flockId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Farm</label>
                             <select id="flockId" name="flockId" value={formData.flockId} onChange={handleInputChange} required className="block w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                                <option value="">-- Pilih Kawanan --</option>
+                                <option value="">-- Pilih Farm --</option>
                                 {flocks.map(flock => <option key={flock.id} value={flock.id}>{flock.nameOrCode}</option>)}
                             </select>
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {/* Deplesi */}
-                    <Card className="col-span-1">
-                        <CardHeader className="flex flex-row items-center gap-2">{ICONS.DEPLETION} <h4 className="font-semibold">Deplesi</h4></CardHeader>
-                        <CardContent className="space-y-4">
-                            <Input label="Mati (ekor)" id="mortality" name="mortality" type="number" value={formData.mortality} onChange={handleInputChange} />
-                            <Input label="Afkir (ekor)" id="cull" name="cull" type="number" value={formData.cull} onChange={handleInputChange} />
-                        </CardContent>
-                    </Card>
-                     {/* Transfer */}
-                    <Card className="col-span-1">
-                        <CardHeader className="flex flex-row items-center gap-2">{ICONS.TRANSFER} <h4 className="font-semibold">Transfer</h4></CardHeader>
-                        <CardContent className="space-y-4">
-                            <Input label="Masuk (ekor)" id="transferIn" name="transferIn" type="number" value={formData.transferIn} onChange={handleInputChange} />
-                            <Input label="Keluar (ekor)" id="transferOut" name="transferOut" type="number" value={formData.transferOut} onChange={handleInputChange} />
-                        </CardContent>
-                    </Card>
-                    {/* Produksi & Pertumbuhan */}
-                    <Card className="col-span-1">
-                        <CardHeader className="flex flex-row items-center gap-2">{ICONS.PRODUCTION} <h4 className="font-semibold">Produksi & Pertumbuhan</h4></CardHeader>
-                        <CardContent className="space-y-4">
-                            <Input label="Produksi Telur (butir)" id="eggProduction" name="eggProduction" type="number" value={formData.eggProduction} onChange={handleInputChange} />
-                            <Input label="Produksi Telur (kg)" id="eggWeight" name="eggWeight" type="number" step="0.1" value={formData.eggWeight} onChange={handleInputChange} />
-                            <Input label="Timbang BB Rata-rata (kg)" id="averageBodyWeight" name="averageBodyWeight" type="number" step="0.01" value={formData.averageBodyWeight} onChange={handleInputChange} />
-                        </CardContent>
-                    </Card>
-                    {/* Pakan */}
-                    <Card className="col-span-1 md:col-span-2 lg:col-span-1">
-                         <CardHeader className="flex flex-row items-center gap-2">{ICONS.FEED} <h4 className="font-semibold">Pakan</h4></CardHeader>
-                         <CardContent className="space-y-4">
-                            <select name="feedId" value={formData.feedId} onChange={handleInputChange} className="block w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                                <option value="">-- Tanpa Pakan --</option>
-                                {feedItems.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-                            </select>
-                            <Input label="Konsumsi Pakan (kg)" id="feedConsumption" name="feedConsumption" type="number" step="0.1" value={formData.feedConsumption} onChange={handleInputChange} />
-                         </CardContent>
-                    </Card>
-                    {/* Medikasi */}
-                    <Card className="col-span-1 md:col-span-2 lg:col-span-1">
-                         <CardHeader className="flex flex-row items-center gap-2">{ICONS.MEDICATION} <h4 className="font-semibold">Medikasi</h4></CardHeader>
-                         <CardContent className="space-y-4">
-                            <select name="medicationId" value={formData.medicationId} onChange={handleInputChange} className="block w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                                <option value="">-- Tanpa Medikasi --</option>
-                                {medItems.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-                            </select>
-                            <Input label="Dosis" id="medicationDose" name="medicationDose" type="text" placeholder="cth: 1ml / 2L air" value={formData.medicationDose || ''} onChange={handleInputChange} />
-                         </CardContent>
-                    </Card>
-                     {/* Catatan */}
-                    <Card className="col-span-1 md:col-span-2 lg:col-span-1">
-                         <CardHeader className="flex flex-row items-center gap-2">{ICONS.NOTES} <h4 className="font-semibold">Catatan</h4></CardHeader>
-                         <CardContent>
-                            <textarea name="notes" id="notes" rows={4} value={formData.notes || ''} onChange={handleInputChange} className="block w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="Catatan observasi harian..."></textarea>
-                         </CardContent>
-                    </Card>
+                <CardContent>
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse border border-gray-300 dark:border-gray-600 text-xs">
+                            <thead>
+                                <tr className="bg-gray-100 dark:bg-gray-600">
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" rowSpan={2}>Kandang</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" rowSpan={2}>Umur (mg/hr)</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" colSpan={2}>Deplesi</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" colSpan={2}>Transfer</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" colSpan={2}>Pakan</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" colSpan={6}>Produksi</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" colSpan={2}>Medikasi</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300" rowSpan={2}>Catatan</th>
+                                </tr>
+                                <tr className="bg-gray-100 dark:bg-gray-600">
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Mati</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Afkir</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Masuk</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Keluar</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Kode</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Jumlah</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Normal</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Kilo</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Putih</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Kilo</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Retak</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Kilo</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Item</th>
+                                    <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center font-semibold text-gray-700 dark:text-gray-300">Dosis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="bg-white dark:bg-gray-800">
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <select
+                                            name="flockId"
+                                            value={formData.flockId}
+                                            onChange={handleInputChange}
+                                            required
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        >
+                                            <option value="">-- Pilih --</option>
+                                            {flocks.map(flock => <option key={flock.id} value={flock.id}>{flock.nameOrCode}</option>)}
+                                        </select>
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            id="mortality"
+                                            name="mortality"
+                                            value={formData.mortality}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            id="cull"
+                                            name="cull"
+                                            value={formData.cull}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            id="transferIn"
+                                            name="transferIn"
+                                            value={formData.transferIn}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            id="transferOut"
+                                            name="transferOut"
+                                            value={formData.transferOut}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <select
+                                            name="feedId"
+                                            value={formData.feedId}
+                                            onChange={handleInputChange}
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        >
+                                            <option value="">--</option>
+                                            {feedItems.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+                                        </select>
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            step="0.1"
+                                            id="feedConsumption"
+                                            name="feedConsumption"
+                                            value={formData.feedConsumption}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            id="eggProduction"
+                                            name="eggProduction"
+                                            value={formData.eggProduction}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            step="0.1"
+                                            id="eggWeight"
+                                            name="eggWeight"
+                                            value={formData.eggWeight}
+                                            onChange={handleInputChange}
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            step="0.1"
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="number"
+                                            step="0.1"
+                                            placeholder="0"
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <select
+                                            name="medicationId"
+                                            value={formData.medicationId}
+                                            onChange={handleInputChange}
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        >
+                                            <option value="">--</option>
+                                            {medItems.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+                                        </select>
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <input
+                                            type="text"
+                                            id="medicationDose"
+                                            name="medicationDose"
+                                            placeholder="Dosis"
+                                            value={formData.medicationDose || ''}
+                                            onChange={handleInputChange}
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500"
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-center">
+                                        <textarea
+                                            name="notes"
+                                            id="notes"
+                                            rows={2}
+                                            value={formData.notes || ''}
+                                            onChange={handleInputChange}
+                                            placeholder="Catatan..."
+                                            className="w-full px-1 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs focus:outline-none focus:ring-green-500 focus:border-green-500 resize-none"
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </CardContent>
                 <CardFooter className="flex justify-between items-center">
                     <p className={`text-sm ${feedback.includes('berhasil') ? 'text-green-600' : 'text-red-500'}`}>{feedback}</p>

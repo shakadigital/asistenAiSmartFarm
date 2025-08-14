@@ -116,7 +116,7 @@ CREATE INDEX idx_inventory_transaction_logs_date ON inventory_transaction_logs(t
 
 -- Insert sample data
 INSERT INTO organizations (id, name, logo_url) VALUES 
-('550e8400-e29b-41d4-a716-446655440000', 'PT. Peternakan Maju Jaya', '/api/placeholder/150/150');
+('550e8400-e29b-41d4-a716-446655440000', 'PT. Lokasi Maju Jaya', '/api/placeholder/150/150');
 
 INSERT INTO profiles (id, organization_id, full_name, role) VALUES 
 ('550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', 'Ahmad Santoso', 'admin');
@@ -126,9 +126,9 @@ INSERT INTO farms (id, organization_id, name, location) VALUES
 ('550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440000', 'Farm Cabang', 'Sukabumi, Jawa Barat');
 
 INSERT INTO flocks (id, farm_id, name_or_code, entry_date, initial_population) VALUES 
-('550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440002', 'Kawanan A-101', '2024-01-15', 5000),
-('550e8400-e29b-41d4-a716-446655440005', '550e8400-e29b-41d4-a716-446655440002', 'Kawanan A-102', '2024-02-01', 4800),
-('550e8400-e29b-41d4-a716-446655440006', '550e8400-e29b-41d4-a716-446655440003', 'Kawanan B-201', '2024-01-20', 4500);
+('550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440002', 'Farm A-101', '2024-01-15', 5000),
+('550e8400-e29b-41d4-a716-446655440005', '550e8400-e29b-41d4-a716-446655440002', 'Farm A-102', '2024-02-01', 4800),
+('550e8400-e29b-41d4-a716-446655440006', '550e8400-e29b-41d4-a716-446655440003', 'Farm B-201', '2024-01-20', 4500);
 
 INSERT INTO inventory_items (id, name, type, category, quantity, unit) VALUES 
 ('550e8400-e29b-41d4-a716-446655440007', 'Pakan Starter', 'Pakan', 'Pakan', 2500, 'kg'),

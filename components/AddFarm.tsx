@@ -24,14 +24,14 @@ export const AddFarm: React.FC<AddFarmProps> = ({ onAddFarm, onFarmAdded }) => {
     setFeedbackMessage('');
     try {
       await onAddFarm(name, location);
-      setFeedbackMessage('Peternakan berhasil ditambahkan!');
+              setFeedbackMessage('Lokasi berhasil ditambahkan!');
       setName('');
       setLocation('');
       setTimeout(() => {
         onFarmAdded(); // Navigate back to dashboard
       }, 1500);
     } catch (error) {
-      setFeedbackMessage('Gagal menambahkan peternakan. Silakan coba lagi.');
+              setFeedbackMessage('Gagal menambahkan lokasi. Silakan coba lagi.');
       console.error(error);
       setTimeout(() => setFeedbackMessage(''), 3000);
     } finally {
@@ -41,21 +41,21 @@ export const AddFarm: React.FC<AddFarmProps> = ({ onAddFarm, onFarmAdded }) => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-white mb-6">Tambah Peternakan Baru</h2>
+                  <h2 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-white mb-6">Tambah Lokasi Baru</h2>
       <Card className="max-w-2xl mx-auto">
         <form onSubmit={handleSubmit}>
           <CardHeader>
-            <h3 className="text-xl font-semibold">Detail Peternakan</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Masukkan informasi untuk peternakan baru Anda.</p>
+            <h3 className="text-xl font-semibold">Detail Lokasi</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Masukkan informasi untuk lokasi baru Anda.</p>
           </CardHeader>
           <CardContent className="space-y-6">
             <Input
               id="farm-name"
-              label="Nama Peternakan"
+              label="Nama Lokasi"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Contoh: Peternakan Sentosa"
+              placeholder="Contoh: Lokasi Sentosa"
               required
             />
             <Input
@@ -72,7 +72,7 @@ export const AddFarm: React.FC<AddFarmProps> = ({ onAddFarm, onFarmAdded }) => {
             <p className={`text-sm ${feedbackMessage.includes('berhasil') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>{feedbackMessage}</p>
             <Button type="submit" isLoading={isLoading} disabled={!name || !location}>
                 <PlusCircle className="mr-2 h-5 w-5" />
-                Tambah Peternakan
+                Tambah Lokasi
             </Button>
           </CardFooter>
         </form>

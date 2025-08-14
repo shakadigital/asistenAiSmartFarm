@@ -12,7 +12,6 @@
     "setup:check": "node -e \"console.log('Checking setup...'); const fs = require('fs'); const envExists = fs.existsSync('.env.local'); console.log(envExists ? '✅ .env.local exists' : '❌ .env.local missing'); console.log('📖 See SETUP_GUIDE.md for instructions');\""
   },
   "dependencies": {
-    "@google/genai": "^1.13.0",
     "@supabase/supabase-js": "^2.55.0",
     "lucide-react": "^0.539.0",
     "react": "^19.1.1",

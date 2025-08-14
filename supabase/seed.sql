@@ -14,7 +14,7 @@
 
 -- Insert Organizations
 INSERT INTO organizations (id, name, logo_url) VALUES 
-('550e8400-e29b-41d4-a716-446655440000', 'PT. Peternakan Maju Jaya', '/api/placeholder/150/150')
+('550e8400-e29b-41d4-a716-446655440000', 'PT. Lokasi Maju Jaya', '/api/placeholder/150/150')
 ON CONFLICT (id) DO NOTHING;
 
 -- Insert Profiles
@@ -30,9 +30,9 @@ ON CONFLICT (id) DO NOTHING;
 
 -- Insert Flocks
 INSERT INTO flocks (id, farm_id, name_or_code, entry_date, initial_population) VALUES 
-('550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440002', 'Kawanan A-101', '2024-01-15', 5000),
-('550e8400-e29b-41d4-a716-446655440005', '550e8400-e29b-41d4-a716-446655440002', 'Kawanan A-102', '2024-02-01', 4800),
-('550e8400-e29b-41d4-a716-446655440006', '550e8400-e29b-41d4-a716-446655440003', 'Kawanan B-201', '2024-01-20', 4500)
+('550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440002', 'Farm A-101', '2024-01-15', 5000),
+('550e8400-e29b-41d4-a716-446655440005', '550e8400-e29b-41d4-a716-446655440002', 'Farm A-102', '2024-02-01', 4800),
+('550e8400-e29b-41d4-a716-446655440006', '550e8400-e29b-41d4-a716-446655440003', 'Farm B-201', '2024-01-20', 4500)
 ON CONFLICT (id) DO NOTHING;
 
 -- Insert Inventory Items
@@ -60,19 +60,19 @@ ON CONFLICT (id) DO NOTHING;
 
 -- Insert Daily Records (sample data for the last 30 days)
 INSERT INTO daily_records (id, flock_id, record_date, mortality, cull, transfer_in, transfer_out, egg_production, egg_weight, average_body_weight, feed_consumption, notes) VALUES 
--- Kawanan A-101 records
+-- Farm A-101 records
 ('550e8400-e29b-41d4-a716-446655440022', '550e8400-e29b-41d4-a716-446655440004', '2024-05-20', 5, 2, 0, 0, 4500, 58.5, 1850, 320.5, 'Kondisi normal'),
 ('550e8400-e29b-41d4-a716-446655440023', '550e8400-e29b-41d4-a716-446655440004', '2024-05-21', 3, 1, 0, 0, 4450, 58.2, 1855, 318.2, 'Sedikit penurunan produksi'),
 ('550e8400-e29b-41d4-a716-446655440024', '550e8400-e29b-41d4-a716-446655440004', '2024-05-22', 4, 0, 0, 0, 4200, 57.8, 1860, 315.8, 'Cuaca panas'),
 ('550e8400-e29b-41d4-a716-446655440025', '550e8400-e29b-41d4-a716-446655440004', '2024-05-23', 2, 1, 0, 0, 4600, 59.1, 1865, 322.1, 'Kondisi membaik'),
 ('550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440004', '2024-05-24', 6, 3, 0, 0, 4350, 58.7, 1870, 319.5, 'Ada yang sakit'),
--- Kawanan A-102 records
+-- Farm A-102 records
 ('550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440005', '2024-05-20', 4, 1, 0, 0, 4200, 57.5, 1780, 298.5, 'Kondisi baik'),
 ('550e8400-e29b-41d4-a716-446655440028', '550e8400-e29b-41d4-a716-446655440005', '2024-05-21', 3, 2, 0, 0, 4150, 57.2, 1785, 296.2, 'Stabil'),
 ('550e8400-e29b-41d4-a716-446655440029', '550e8400-e29b-41d4-a716-446655440005', '2024-05-22', 5, 0, 0, 0, 3980, 56.8, 1790, 294.8, 'Produksi turun'),
 ('550e8400-e29b-41d4-a716-446655440030', '550e8400-e29b-41d4-a716-446655440005', '2024-05-23', 2, 1, 0, 0, 4300, 58.1, 1795, 301.1, 'Membaik'),
 ('550e8400-e29b-41d4-a716-446655440031', '550e8400-e29b-41d4-a716-446655440005', '2024-05-24', 3, 2, 0, 0, 4180, 57.9, 1800, 299.5, 'Normal'),
--- Kawanan B-201 records
+-- Farm B-201 records
 ('550e8400-e29b-41d4-a716-446655440032', '550e8400-e29b-41d4-a716-446655440006', '2024-05-20', 3, 1, 0, 0, 3800, 56.5, 1650, 275.5, 'Kondisi baik'),
 ('550e8400-e29b-41d4-a716-446655440033', '550e8400-e29b-41d4-a716-446655440006', '2024-05-21', 4, 0, 0, 0, 3750, 56.2, 1655, 273.2, 'Sedikit turun'),
 ('550e8400-e29b-41d4-a716-446655440034', '550e8400-e29b-41d4-a716-446655440006', '2024-05-22', 2, 1, 0, 0, 3900, 57.1, 1660, 278.1, 'Meningkat'),
@@ -119,9 +119,9 @@ INSERT INTO inventory_transaction_logs (id, inventory_item_id, transaction_type,
 ('550e8400-e29b-41d4-a716-446655440061', '550e8400-e29b-41d4-a716-446655440012', 'Masuk', 50, 750000, 'Medika Farma', 'Stok vitamin', '2024-05-01'),
 ('550e8400-e29b-41d4-a716-446655440062', '550e8400-e29b-41d4-a716-446655440012', 'Keluar', 30, 0, 'Pemberian Vitamin', 'Pemakaian rutin', '2024-05-21'),
 -- Telur transactions
-('550e8400-e29b-41d4-a716-446655440063', '550e8400-e29b-41d4-a716-446655440014', 'Masuk', 4500, 0, 'Produksi Kawanan A-101', 'Hasil produksi', '2024-05-20'),
+('550e8400-e29b-41d4-a716-446655440063', '550e8400-e29b-41d4-a716-446655440014', 'Masuk', 4500, 0, 'Produksi Farm A-101', 'Hasil produksi', '2024-05-20'),
 ('550e8400-e29b-41d4-a716-446655440064', '550e8400-e29b-41d4-a716-446655440014', 'Keluar', 4000, 8000000, 'Distributor Telur Jaya', 'Penjualan Grade A', '2024-05-20'),
-('550e8400-e29b-41d4-a716-446655440065', '550e8400-e29b-41d4-a716-446655440014', 'Masuk', 4200, 0, 'Produksi Kawanan A-101', 'Hasil produksi', '2024-05-22'),
+('550e8400-e29b-41d4-a716-446655440065', '550e8400-e29b-41d4-a716-446655440014', 'Masuk', 4200, 0, 'Produksi Farm A-101', 'Hasil produksi', '2024-05-22'),
 ('550e8400-e29b-41d4-a716-446655440066', '550e8400-e29b-41d4-a716-446655440014', 'Keluar', 8500, 17850000, 'Supermarket Segar', 'Pengiriman besar', '2024-05-22')
 ON CONFLICT (id) DO NOTHING;
 

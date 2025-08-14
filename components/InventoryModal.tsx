@@ -89,7 +89,7 @@ const renderTable = (category: InventorySummaryCategory, logs: InventoryLogs) =>
                         <tr>
                             <th scope="col" className="px-4 py-3">Tanggal</th>
                             <th scope="col" className="px-4 py-3">Masuk (butir)</th>
-                            <th scope="col" className="px-4 py-3">Dari Kawanan</th>
+                            <th scope="col" className="px-4 py-3">Dari Farm</th>
                             <th scope="col" className="px-4 py-3">Keluar (butir)</th>
                             <th scope="col" className="px-4 py-3">Harga Jual</th>
                             <th scope="col" className="px-4 py-3">Customer</th>

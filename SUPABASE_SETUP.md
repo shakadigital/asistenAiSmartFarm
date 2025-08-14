@@ -33,7 +33,7 @@ Panduan ini akan membantu Anda mengatur database Supabase untuk aplikasi Asisten
 2. Ganti placeholder dengan kredensial Supabase Anda:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+
 
 # Supabase Configuration
 SUPABASE_URL=https://your-project-id.supabase.co

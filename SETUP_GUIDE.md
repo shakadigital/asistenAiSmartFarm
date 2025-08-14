@@ -7,7 +7,7 @@ Panduan lengkap untuk mengatur aplikasi Asisten AI Smartfarm dengan database Sup
 - Node.js (v16 atau lebih baru)
 - npm atau yarn
 - Akun Supabase (gratis)
-- Akun Google AI (untuk Gemini API)
+
 
 ## 1. Clone dan Install Dependencies
 
@@ -44,8 +44,7 @@ npm install
 Buat atau edit file `.env.local`:
 
 ```env
-# Gemini AI API Key
-GEMINI_API_KEY=your_gemini_api_key_here
+
 
 # Supabase Configuration
 SUPABASE_URL=https://your-project-id.supabase.co
@@ -243,7 +242,7 @@ npm run build
 Pastikan set environment variables di platform hosting:
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
-- `GEMINI_API_KEY`
+
 
 ## Support
 

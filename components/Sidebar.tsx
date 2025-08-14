@@ -54,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView })
     
     const navItems = [
         { view: View.DASHBOARD, label: 'Dasbor', icon: ICONS.DASHBOARD },
-        { view: View.FARMS, label: 'Peternakan', icon: ICONS.FARMS },
+        { view: View.FARMS, label: 'Lokasi', icon: ICONS.FARMS },
         { view: View.DAILY_REPORTS, label: 'Laporan Harian', icon: ICONS.DAILY_REPORTS },
         { view: View.INVENTORY, label: 'Inventori', icon: ICONS.INVENTORY },
         { view: View.WORKFORCE, label: 'Tenaga Kerja', icon: ICONS.WORKFORCE },

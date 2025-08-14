@@ -24,7 +24,7 @@ export const FarmCard: React.FC<FarmCardProps> = ({ farm, flocks, onAddFlock }) 
                 </div>
             </CardHeader>
             <CardContent>
-                <h4 className="font-semibold mb-3">Kawanan di Peternakan Ini:</h4>
+                <h4 className="font-semibold mb-3">Farm di Lokasi Ini:</h4>
                 {flocks.length > 0 ? (
                     <ul className="space-y-2">
                         {flocks.map(flock => (
@@ -35,7 +35,7 @@ export const FarmCard: React.FC<FarmCardProps> = ({ farm, flocks, onAddFlock }) 
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-sm text-gray-400 italic">Belum ada kawanan yang ditambahkan.</p>
+                    <p className="text-sm text-gray-400 italic">Belum ada farm yang ditambahkan.</p>
                 )}
 
                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -48,7 +48,7 @@ export const FarmCard: React.FC<FarmCardProps> = ({ farm, flocks, onAddFlock }) 
                     ) : (
                         <Button variant="secondary" onClick={() => setShowAddForm(true)} className="w-full">
                             <PlusCircle className="mr-2 h-4 w-4" />
-                            Tambah Kawanan
+                            Tambah Farm
                         </Button>
                     )}
                 </div>

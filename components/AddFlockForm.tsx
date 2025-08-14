@@ -24,13 +24,13 @@ export const AddFlockForm: React.FC<AddFlockFormProps> = ({ farmId, onAddFlock, 
     setFeedbackMessage('');
     try {
       await onAddFlock(farmId, nameOrCode, entryDate, parseInt(initialPopulation, 10));
-      setFeedbackMessage('Kawanan berhasil ditambahkan!');
+                  setFeedbackMessage('Farm berhasil ditambahkan!');
       
       setTimeout(() => {
         onFlockAdded();
       }, 1500);
     } catch (error) {
-      setFeedbackMessage('Gagal menambahkan kawanan. Coba lagi.');
+              setFeedbackMessage('Gagal menambahkan farm. Coba lagi.');
       console.error(error);
       setTimeout(() => setFeedbackMessage(''), 3000);
     } finally {
@@ -40,15 +40,15 @@ export const AddFlockForm: React.FC<AddFlockFormProps> = ({ farmId, onAddFlock, 
 
   return (
     <div>
-        <h4 className="font-semibold text-md mb-3">Tambah Kawanan Baru</h4>
+                    <h4 className="font-semibold text-md mb-3">Tambah Farm Baru</h4>
         <form onSubmit={handleSubmit} className="space-y-4">
             <Input
                 id={`flock-name-${farmId}`}
-                label="Nama/Kode Kawanan"
+                label="Nama/Kode Farm"
                 type="text"
                 value={nameOrCode}
                 onChange={(e) => setNameOrCode(e.target.value)}
-                placeholder="Contoh: Kawanan C-303"
+                placeholder="Contoh: Farm C-303"
                 required
             />
             <Input
@@ -74,7 +74,7 @@ export const AddFlockForm: React.FC<AddFlockFormProps> = ({ farmId, onAddFlock, 
                     {feedbackMessage}
                 </p>
                 <Button type="submit" isLoading={isLoading} disabled={!nameOrCode || !entryDate || !initialPopulation}>
-                    Simpan Kawanan
+                    Simpan Farm
                 </Button>
             </div>
         </form>

@@ -47,7 +47,7 @@ Memperbarui data organisasi.
 ```typescript
 const updatedOrg = await organizationService.update(
   '550e8400-e29b-41d4-a716-446655440000',
-  'PT. Peternakan Baru',
+  'PT. Lokasi Baru',
   'https://example.com/logo.png'
 );
 ```
@@ -134,7 +134,7 @@ Membuat flock baru.
 ```typescript
 const newFlock = await flockService.create(
   '550e8400-e29b-41d4-a716-446655440002',
-  'Kawanan C-301',
+  'Farm C-301',
   '2024-06-01',
   5000
 );
@@ -311,8 +311,8 @@ try {
 ### Tables
 - `organizations`: Data organisasi
 - `profiles`: Profil pengguna
-- `farms`: Data peternakan
-- `flocks`: Data kawanan
+- `farms`: Data lokasi
+- `flocks`: Data farm
 - `daily_records`: Catatan harian
 - `inventory_items`: Item inventori
 - `workforce_members`: Anggota tim

@@ -17,12 +17,12 @@ const MOCK_PROFILE: Profile = {
 };
 
 const MOCK_FARMS: Farm[] = [
-  { id: 'farm_01', organizationId: 'org_123', name: 'Peternakan Utama', location: 'Lembah Hijau' },
+      { id: 'farm_01', organizationId: 'org_123', name: 'Lokasi Utama', location: 'Lembah Hijau' },
 ];
 
 const MOCK_FLOCKS: Flock[] = [
-  { id: 'flock_A', farmId: 'farm_01', nameOrCode: 'Kawanan A-101', entryDate: '2023-10-01', initialPopulation: 5000 },
-  { id: 'flock_B', farmId: 'farm_01', nameOrCode: 'Kawanan B-202', entryDate: '2023-11-15', initialPopulation: 5200 },
+          { id: 'flock_A', farmId: 'farm_01', nameOrCode: 'Farm A-101', entryDate: '2023-10-01', initialPopulation: 5000 },
+        { id: 'flock_B', farmId: 'farm_01', nameOrCode: 'Farm B-202', entryDate: '2023-11-15', initialPopulation: 5200 },
 ];
 
 const MOCK_DAILY_RECORDS: Omit<DailyRecord, 'id'>[] = [
@@ -65,8 +65,8 @@ const MOCK_ATTENDANCE_LOGS: AttendanceLog[] = [
 
 const MOCK_PAKAN_LOGS: PakanLog[] = [
     { id: 'pl_1', tanggal: '2024-05-18', kodePakan: 'Pakan Jagung Super', masuk: 2000, keluar: 0, stok: 2000, supplier: 'CV Pakan Sejahtera', harga: 8500, note: 'Penerimaan stok bulanan' },
-    { id: 'pl_2', tanggal: '2024-05-20', kodePakan: 'Pakan Jagung Super', masuk: 0, keluar: 550, stok: 1450, supplier: '-', harga: 0, note: 'Pemakaian harian Kawanan A' },
-    { id: 'pl_3', tanggal: '2024-05-21', kodePakan: 'Pakan Jagung Super', masuk: 0, keluar: 580, stok: 870, supplier: '-', harga: 0, note: 'Pemakaian harian Kawanan B' },
+    { id: 'pl_2', tanggal: '2024-05-20', kodePakan: 'Pakan Jagung Super', masuk: 0, keluar: 550, stok: 1450, supplier: '-', harga: 0, note: 'Pemakaian harian Farm A' },
+    { id: 'pl_3', tanggal: '2024-05-21', kodePakan: 'Pakan Jagung Super', masuk: 0, keluar: 580, stok: 870, supplier: '-', harga: 0, note: 'Pemakaian harian Farm B' },
 ];
 
 const MOCK_VAKSIN_LOGS: VaksinLog[] = [
@@ -78,13 +78,13 @@ const MOCK_MEDIKASI_LOGS: MedikasiLog[] = [
     { id: 'ml_1', tanggal: '2024-05-01', namaBarang: 'Vitamin B-Complex', masuk: 50, keluar: 0, stok: 50, supplier: 'Medika Farma', harga: 15000, note: 'Stok vitamin' },
     { id: 'ml_2', tanggal: '2024-05-21', namaBarang: 'Vitamin B-Complex', masuk: 0, keluar: 30, stok: 20, supplier: '-', harga: 0, note: 'Pemakaian rutin' },
     { id: 'ml_3', tanggal: '2024-05-10', namaBarang: 'Antibiotik Pro', masuk: 20, keluar: 0, stok: 20, supplier: 'Kimia Med', harga: 45000, note: 'Stok obat' },
-    { id: 'ml_4', tanggal: '2024-05-22', namaBarang: 'Antibiotik Pro', masuk: 0, keluar: 5, stok: 15, supplier: '-', harga: 0, note: 'Pengobatan kawanan A' },
+    { id: 'ml_4', tanggal: '2024-05-22', namaBarang: 'Antibiotik Pro', masuk: 0, keluar: 5, stok: 15, supplier: '-', harga: 0, note: 'Pengobatan farm A' },
 ];
 
 const MOCK_TELUR_LOGS: TelurLog[] = [
-    { id: 'tl_1', tanggal: '2024-05-20', masuk: 4500, flock: 'Kawanan A-101', keluar: 4000, harga: 2000, customer: 'Distributor Telur Jaya', stok: 500, note: 'Grade A' },
-    { id: 'tl_2', tanggal: '2024-05-21', masuk: 4450, flock: 'Kawanan A-101', keluar: 0, stok: 4950, harga: 0, customer: '-', note: 'Disimpan di gudang' },
-    { id: 'tl_3', tanggal: '2024-05-22', masuk: 4200, flock: 'Kawanan A-101', keluar: 8500, harga: 2100, customer: 'Supermarket Segar', stok: 650, note: 'Pengiriman besar' },
+    { id: 'tl_1', tanggal: '2024-05-20', masuk: 4500, flock: 'Farm A-101', keluar: 4000, harga: 2000, customer: 'Distributor Telur Jaya', stok: 500, note: 'Grade A' },
+    { id: 'tl_2', tanggal: '2024-05-21', masuk: 4450, flock: 'Farm A-101', keluar: 0, stok: 4950, harga: 0, customer: '-', note: 'Disimpan di gudang' },
+    { id: 'tl_3', tanggal: '2024-05-22', masuk: 4200, flock: 'Farm A-101', keluar: 8500, harga: 2100, customer: 'Supermarket Segar', stok: 650, note: 'Pengiriman besar' },
 ];
 
 export const useSmartfarmData = () => {
@@ -165,7 +165,7 @@ export const useSmartfarmData = () => {
 
   const addFarm = async (name: string, location: string): Promise<Farm> => {
     setLoading(true);
-    console.log('Mensimulasikan penambahan peternakan baru...');
+    console.log('Mensimulasikan penambahan lokasi baru...');
     await new Promise(res => setTimeout(res, 1000));
 
     const newFarm: Farm = {
@@ -177,13 +177,13 @@ export const useSmartfarmData = () => {
 
     setFarms(prevFarms => [...prevFarms, newFarm]);
     setLoading(false);
-    console.log('Simulasi penambahan peternakan selesai.', newFarm);
+    console.log('Simulasi penambahan lokasi selesai.', newFarm);
     return newFarm;
   };
 
   const addFlock = async (farmId: string, nameOrCode: string, entryDate: string, initialPopulation: number): Promise<Flock> => {
     setLoading(true);
-    console.log(`Mensimulasikan penambahan kawanan baru ke peternakan ${farmId}...`);
+    console.log(`Mensimulasikan penambahan farm baru ke lokasi ${farmId}...`);
     await new Promise(res => setTimeout(res, 1000));
 
     const newFlock: Flock = {
@@ -196,7 +196,7 @@ export const useSmartfarmData = () => {
 
     setFlocks(prevFlocks => [...prevFlocks, newFlock]);
     setLoading(false);
-    console.log('Simulasi penambahan kawanan selesai.', newFlock);
+    console.log('Simulasi penambahan farm selesai.', newFlock);
     return newFlock;
   };
 

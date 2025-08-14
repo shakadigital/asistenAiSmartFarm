@@ -1,12 +1,12 @@
 # Asisten AI Smartfarm
 
-Aplikasi manajemen peternakan pintar dengan AI assistant yang membantu dalam:
-- Manajemen farm dan kawanan
+Aplikasi manajemen lokasi pintar yang membantu dalam:
+- Manajemen farm dan farm
 - Pencatatan harian produksi
 - Analisis performa
 - Manajemen inventori
 - Manajemen tenaga kerja
-- Konsultasi AI untuk optimasi peternakan
+- Analisis data untuk optimasi lokasi
 
 ## 🚀 Quick Start
 
@@ -17,8 +17,9 @@ git clone <repository-url>
 cd asisten-ai-smartfarm
 npm install
 
-# Setup Gemini API (opsional untuk AI features)
-echo "GEMINI_API_KEY=your_gemini_api_key" > .env.local
+# Setup environment (opsional)
+echo "SUPABASE_URL=your_supabase_url" > .env.local
+echo "SUPABASE_ANON_KEY=your_supabase_anon_key" >> .env.local
 
 # Run dengan mock data
 npm run dev
@@ -64,12 +65,12 @@ npm run setup:check      # Check environment setup
 ### 🏠 Dashboard
 - Overview statistik farm
 - Grafik produksi telur
-- Monitoring kesehatan kawanan
+- Monitoring kesehatan farm
 - KPI performa
 
 ### 🚜 Manajemen Farm
-- Tambah dan kelola multiple farm
-- Tracking kawanan per farm
+- Tambah dan kelola multiple lokasi
+- Tracking farm per farm
 - Lokasi dan detail farm
 
 ### 📊 Laporan Harian
@@ -91,27 +92,24 @@ npm run setup:check      # Check environment setup
 - KPI produktivitas
 - Tracking performa
 
-### 🤖 AI Assistant
-- Konsultasi berbasis data
+### 📊 Analisis Data
+- Analisis berbasis data
 - Rekomendasi optimasi
 - Analisis tren
-- Prediksi performa
+- Statistik performa
 
 ## 🏗️ Teknologi
 
 - **Frontend**: React + TypeScript + Vite
 - **UI**: Tailwind CSS + Lucide Icons
 - **Charts**: Recharts
-- **AI**: Google Gemini API
+- **Analytics**: Recharts
 - **Database**: Supabase (PostgreSQL)
 - **State Management**: React Hooks
 
 ## 🔧 Environment Variables
 
 ```env
-# Required for AI features
-GEMINI_API_KEY=your_gemini_api_key
-
 # Required for Supabase (production)
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your_anon_key
@@ -160,7 +158,6 @@ npm run build
 Set these in your hosting platform:
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
-- `GEMINI_API_KEY`
 
 ## 🤝 Contributing
 
